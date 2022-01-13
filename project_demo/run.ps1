@@ -1,0 +1,1 @@
+g++ -o hello.exe -Wall test.cpp glut32.lib GLU32.lib OPENGL32.lib -lopengl32 -lglu32
