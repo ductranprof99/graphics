@@ -659,25 +659,27 @@ void Mesh::DrawColor()
 		glEnd();
 	}
 }
-
 void Mesh::CalculateFacesNorm()
 {
 	for (int f = 0; f < numFaces; f++)
 	{
-		int numVertofFace = face[f].nVerts;
-		float m_x = 0, m_y = 0, m_z = 0;
-		// newell not so well
-		for (int v = 0; v < numVertofFace; v++)
+		float mx = 0, my = 0, mz = 0;
+		for (int v = 0; v < face[f].nVerts; v++)
 		{
-			m_x += (pt[face[f].vert[v].vertIndex].y - pt[face[f].vert[(v+1)%numVertofFace].vertIndex].y) * (pt[face[f].vert[(v+1)%numVertofFace].vertIndex].z + pt[face[f].vert[v].vertIndex].z);
-			m_y += (pt[face[f].vert[(v+1)%numVertofFace].vertIndex].z - pt[face[f].vert[v].vertIndex].z) * (pt[face[f].vert[v].vertIndex].x + pt[face[f].vert[(v+1)%numVertofFace].vertIndex].x);
-			m_z += (pt[face[f].vert[v].vertIndex].x - pt[face[f].vert[(v+1)%numVertofFace].vertIndex].x) * (pt[face[f].vert[(v+1)%numVertofFace].vertIndex].y + pt[face[f].vert[v].vertIndex].y);
+			int iv = face[f].vert[v].vertIndex;
+			int next = face[f].vert[(v + 1) % face[f].nVerts].vertIndex;
+			mx += (pt[iv].y - pt[next].y) * (pt[iv].z + pt[next].z);
+			my += (pt[iv].z - pt[next].z) * (pt[iv].x + pt[next].x);
+			mz += (pt[iv].x - pt[next].x) * (pt[iv].y + pt[next].y);
 		}
-		face[f].facenorm.set(m_x, m_y, m_z);
+		face[f].facenorm.set(mx, my, mz);
+		face[f].facenorm.normalize();
 	}
 }
 
-void Mesh::Draw() {
+// To mau cho doi tuong (Lab 5)
+void Mesh::Draw()
+{
 	for (int f = 0; f < numFaces; f++)
 	{
 		glBegin(GL_POLYGON);
@@ -691,6 +693,7 @@ void Mesh::Draw() {
 	}
 }
 
+// Thiet lap vat lieu cho doi tuong (Lab 5)
 void Mesh::setupMaterial(float ambient[], float diffuse[], float specular[], float shiness)
 {
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);

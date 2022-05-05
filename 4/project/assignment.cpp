@@ -10,7 +10,7 @@ using namespace std;
 int		screenWidth = 900;
 int		screenHeight= 600;
 
-Assignment_object obj;
+Assignment_object obj,obj_wired;
 
 float camera_angle = 0.0f; // init
 float camera_height = 0.0f; // equal object y
@@ -33,14 +33,16 @@ void myKeyboard(unsigned char key, int x, int y){
 			angle_z += 1;
 		if (key=='4')
 			angle_z += -1;
-		if (key=='5')
+		if (key=='5'){
 			obj.rotate_object(0.1);
-		if (key=='6')
+			obj_wired.rotate_object(0.1);	
+		}
+		if (key=='6'){
 			obj.rotate_object(-0.1);
-		if(key == 'w' || key == 'W'){
+			obj_wired.rotate_object(-0.1);
+		}
+		if(key == 'w' || key == 'W')
 			isWire = !isWire;
-			cout << "isWire = " << isWire << endl;
-			}
 		if(key == '+'){
 			camera_dis += 0.1;
 			camera_Z = camera_dis * cos(camera_angle);
@@ -98,24 +100,27 @@ void drawAxis()
 
 void myDisplay()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
 	
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(camera_X, camera_Y, camera_Z, lookAt_X, lookAt_Y, lookAt_Z, 0, 1, 0);
 
 	glViewport(0, 0, screenWidth, screenHeight);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	// static things here
-	
 	drawAxis();
-	
+
+
 	glRotatef(angle_y, 0, 1, 0);
 	glRotatef(angle_z, 0, 0, 1);
 
-	
 
-	// moving things here
 	obj.draw_object(isWire);
+
 	glFlush();
     glutSwapBuffers();
 	
@@ -130,27 +135,42 @@ void myInit()
 	glFrontFace(GL_CCW);
 	glEnable(GL_DEPTH_TEST);
 
+	const float ar = (float)screenWidth / (float)screenHeight;
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	// glOrtho(-fHalfSize, fHalfSize, -fHalfSize, fHalfSize, -1000, 1000);
-	glFrustum(-1.5, 1.5, -0.8, 0.8, 1, 100000);
-	GLfloat	lightDiffuse[]={1.0f, 1.0f, 1.0f, 1.0f};
-	GLfloat	lightSpecular[]={1.0f, 1.0f, 1.0f, 1.0f};
-	GLfloat	lightAmbient[]={0.4f, 0.4f, 0.4f, 1.0f};
-	GLfloat 	light_position1[]={6.0f, 6.0f, 6.0f, 0.0f};
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position1);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
+	glFrustum(-ar, ar, -1.0, 1.0, 1.5, 50.0);
 
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glEnable(GL_NORMALIZE);
+	glShadeModel(GL_SMOOTH);
+	glDepthFunc(GL_LEQUAL);
+	// glEnable(GL_COLOR_MATERIAL);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// Lighting
 	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0); 
+	glEnable(GL_LIGHT0);
+
+
+	GLfloat lmodel_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+
+	GLfloat light_ambient0[] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat light_diffuse0[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_specular0[] = { 1.0, 1.0, 1.0, 1.0 };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse0);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient0);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular0);
 
 
 	GLfloat diffuse1[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat specular1[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat ambient1[] = { 0.0, 0.0, 0.0, 1.0 };
-	GLfloat position1[] = { -10.0, 10.0, -10.0, 0.0 };
+	GLfloat position1[] = { 4.0, 4.0, -10.0, 0.0 };
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1);
 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1);
