@@ -633,7 +633,7 @@ void Mesh::DrawWireframe()
 		glBegin(GL_POLYGON);
 		for (int v = 0; v < face[f].nVerts; v++)
 		{
-			int		iv = face[f].vert[v].vertIndex;
+			int iv = face[f].vert[v].vertIndex;
 
 			glVertex3f(pt[iv].x, pt[iv].y, pt[iv].z);
 		}
@@ -732,17 +732,80 @@ void Assignment_object::moving_object_location(float x_a,float y_a,float z_a){
 }
 
 void Assignment_object::draw_object(bool drawWire){
-	if(drawWire){
-		for (int i = 0; i < numObjs; i++){
-			total_object[i].DrawWireframe();
-		}
+	GLfloat shininess = 30.0;
+	glPushMatrix();
+	GLfloat ambient[] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat diffuse[] = { 1.0, 0.0, 0.0, 1.0 };
+	GLfloat specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	total_object[0].setupMaterial(ambient, diffuse, specular, shininess);
+	if (drawWire)
+		total_object[0].Draw();
+	else
+		total_object[0].Draw();
+
+	glPopMatrix();
+
+
+	glPushMatrix();
+	GLfloat ambient1[] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat diffuse1[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat specular1[] = { 1.0, 1.0, 1.0, 1.0 };
+	total_object[1].setupMaterial(ambient1, diffuse1, specular1, shininess);
+	if (drawWire)
+		total_object[1].Draw();
+	else
+		total_object[1].Draw();
+
+	glPopMatrix();
+
+
+	glPushMatrix();
+	GLfloat ambient2[] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat diffuse2[] = { 0.0, 0.0, 1.0, 1.0 };
+	GLfloat specular2[] = { 1.0, 1.0, 1.0, 1.0 };
+	total_object[2].setupMaterial(ambient2, diffuse2, specular2, shininess);
+	if (drawWire)
+		total_object[2].Draw();
+	else
+		total_object[2].Draw();
+
+	glPopMatrix();
+
+	glPushMatrix();
+	GLfloat ambient3[] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat diffuse3[] = { 1.0, 0.0, 0.0, 1.0 };
+	GLfloat specular3[] = { 1.0, 1.0, 1.0, 1.0 };
+	total_object[3].setupMaterial(ambient3, diffuse3, specular3, shininess);
+	total_object[4].setupMaterial(ambient3, diffuse3, specular3, shininess);
+	total_object[6].setupMaterial(ambient3, diffuse3, specular3, shininess);
+	if (drawWire){
+		total_object[3].Draw();
+		total_object[4].Draw();
+		total_object[6].Draw();
 	}
 	else{
-		for (int i = 0; i < numObjs; i++){
-			// total_object[i].DrawColor();
-			total_object[i].Draw();
-		}
+		total_object[3].Draw();
+		total_object[4].Draw();
+		total_object[6].Draw();
 	}
+	glPopMatrix();
+
+	glPushMatrix();
+	GLfloat ambient4[] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat diffuse4[] = { 0.0, 1.0, 0.0, 1.0 };
+	GLfloat specular4[] = { 1.0, 1.0, 1.0, 1.0 };
+	total_object[3].setupMaterial(ambient4, diffuse4, specular4, shininess);
+	total_object[4].setupMaterial(ambient4, diffuse4, specular4, shininess);
+	if (drawWire){
+		total_object[3].Draw();
+		total_object[4].Draw();
+	}
+	else{
+		total_object[3].Draw();
+		total_object[4].Draw();
+	}
+	glPopMatrix();
+
 }
 
 

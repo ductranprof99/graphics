@@ -9,6 +9,7 @@ using namespace std;
 
 int		screenWidth = 900;
 int		screenHeight= 600;
+#define PI 3.14159265358979323846
 
 Assignment_object obj,obj_wired;
 
@@ -82,6 +83,161 @@ void mySpecialKeyboard(int key, int x, int y){
 	glutPostRedisplay();
 }
 
+void rotate_point_60(float &x, float &y, float &z){
+	float temp = x;
+	x = y * cos(PI/3) - z * sin(PI/3);
+	z = temp * sin(PI/3) + z * cos(PI/3);
+
+}
+
+void drawSnow(float x, float y, float z, float R, float alpha)
+{
+	// glColor4f(0.3, 1.0, 1.0, alpha); this color for another one
+	// silver glColor4f(0.75, 0.75, 0.75, alpha);
+	// black  glColor4f(0.0, 0.0, 0.0, alpha);
+	float R2 = R * 0.6;
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.75, 0.75, 0.75, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x+ R, y, z);
+	glVertex3f(x+  R2*sin(60 * PI / 180), y, z + R2/2);
+	glEnd();
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.0, 0.0, 0.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x+  R2*sin(60 * PI / 180), y, z + R2/2);
+	glVertex3f(x+ R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glEnd();
+
+	//////////////////////////////////////////////////////////////////////////
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.75, 0.75, 0.75, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x+ R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glVertex3f(x, y, z+R2);
+	glEnd();
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.0, 0.0, 0.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x, y, z+R2);
+	glVertex3f(x- R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glEnd();
+
+	//////////////////////////////////////////////////////////////////////////
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.75, 0.75, 0.75, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x- R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z+ R2/2);
+	glEnd();
+
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.0, 0.0, 0.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z+ R2/2);
+	glVertex3f(x-R, y, z);
+	glEnd();
+
+	//////////////////////////////////////////////////////////////////////////
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.75, 0.75, 0.75, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x-R, y, z);
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z - R2/2);
+	glEnd();
+
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.0, 0.0, 0.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z - R2/2);
+	glVertex3f(x- R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glEnd();
+
+
+	//////////////////////////////////////////////////////////////////////////
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.75, 0.75, 0.75, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x- R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x, y, z - R2);
+	glEnd();
+
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.0, 0.0, 0.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x, y, z - R2);
+	glVertex3f(x+ R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glEnd();
+
+	//////////////////////////////////////////////////////////////////////////
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.75, 0.75, 0.75, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x + R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x+  R2*sin(60 * PI / 180), y, z - R2/2);
+	glEnd();
+
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.0, 0.0, 0.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x+  R2*sin(60 * PI / 180), y, z - R2/2);
+	glVertex3f(x+ R , y, z );
+	glEnd();
+
+
+	// color cyan
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.3, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x+ R, y, z);
+	glVertex3f(x+  R2*sin(60 * PI / 180), y, z + R2/2);
+	glVertex3f(x+ R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glEnd();
+	
+}
+
+void drawSan(float alpha)
+{
+	float y = -3.5;
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	float d = 0.7, R = d / cos(PI / 6);
+	int i = 0;
+	for (float x = -30; x < 30; x += R + R * cos(PI / 3))
+	{
+		float z = (i % 2 == 0) ? -20 : (-20 - d);
+		for (; z < 20; z += 2 * d)
+			drawSnow(x, y, z, R, alpha);
+		i++;
+	}
+	glEnable(GL_LIGHTING);
+}
+
 void drawAxis()
 {
 	glColor3f(0, 0, 1);
@@ -107,12 +263,13 @@ void myDisplay()
 	glLoadIdentity();
 	gluLookAt(camera_X, camera_Y, camera_Z, lookAt_X, lookAt_Y, lookAt_Z, 0, 1, 0);
 
-	glViewport(0, 0, screenWidth, screenHeight);
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glViewport(0, 0, screenWidth, screenHeight);
+
+
 	// static things here
-	drawAxis();
+	drawSan(1.0f);
 
 
 	glRotatef(angle_y, 0, 1, 0);
