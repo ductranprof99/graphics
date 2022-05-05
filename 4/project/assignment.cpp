@@ -101,25 +101,41 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glColor4f(0.75, 0.75, 0.75, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
+	glVertex3f(x + R, y, z);
+	glVertex3f(x +  R2*sin(60 * PI / 180), y, z + R2/2);
+	glEnd();
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.0, 0.0, 0.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x, y, z);
+	glVertex3f(x +  R2*sin(60 * PI / 180), y, z + R2/2);
+	glVertex3f(x + R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glEnd();
+
+	// color cyan
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.3, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x + R, y, z);
+	glVertex3f(x +  R2*sin(60 * PI / 180), y, z + R2/2);
+	glVertex3f(x + R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(1.0, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x+ R, y, z);
-	glVertex3f(x+  R2*sin(60 * PI / 180), y, z + R2/2);
+	glVertex3f(x+ R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
 	glEnd();
-
-	glBegin(GL_TRIANGLES);
-	glColor4f(0.0, 0.0, 0.0, alpha);
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(x, y, z);
-	glVertex3f(x+  R2*sin(60 * PI / 180), y, z + R2/2);
-	glVertex3f(x+ R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
-	glEnd();
-
 	//////////////////////////////////////////////////////////////////////////
 
 	glBegin(GL_TRIANGLES);
 	glColor4f(0.75, 0.75, 0.75, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
-	glVertex3f(x+ R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glVertex3f(x + R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
 	glVertex3f(x, y, z+R2);
 	glEnd();
 
@@ -128,7 +144,25 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
 	glVertex3f(x, y, z+R2);
-	glVertex3f(x- R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glVertex3f(x - R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glEnd();
+
+
+	// color cyan
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.3, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x+ R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glVertex3f(x, y, z+R2);
+	glVertex3f(x- R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(1.0, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x + R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glVertex3f(x - R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
 	glEnd();
 
 	//////////////////////////////////////////////////////////////////////////
@@ -137,8 +171,8 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glColor4f(0.75, 0.75, 0.75, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
-	glVertex3f(x- R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
-	glVertex3f(x - R2*sin(60 * PI / 180), y, z+ R2/2);
+	glVertex3f(x - R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z + R2/2);
 	glEnd();
 
 
@@ -146,17 +180,33 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glColor4f(0.0, 0.0, 0.0, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
-	glVertex3f(x - R2*sin(60 * PI / 180), y, z+ R2/2);
-	glVertex3f(x-R, y, z);
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z + R2/2);
+	glVertex3f(x - R, y, z);
 	glEnd();
 
+	// color cyan
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.3, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x - R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z + R2/2);
+	glVertex3f(x - R, y, z);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(1.0, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x - R * cos(60 * PI / 180), y, z + R* sin(60 * PI / 180));
+	glVertex3f(x - R, y, z);
+	glEnd();
 	//////////////////////////////////////////////////////////////////////////
 
 	glBegin(GL_TRIANGLES);
 	glColor4f(0.75, 0.75, 0.75, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
-	glVertex3f(x-R, y, z);
+	glVertex3f(x - R, y, z);
 	glVertex3f(x - R2*sin(60 * PI / 180), y, z - R2/2);
 	glEnd();
 
@@ -166,9 +216,26 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
 	glVertex3f(x - R2*sin(60 * PI / 180), y, z - R2/2);
-	glVertex3f(x- R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x - R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
 	glEnd();
 
+
+	// color cyan
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.3, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x - R, y, z);
+	glVertex3f(x - R2*sin(60 * PI / 180), y, z - R2/2);
+	glVertex3f(x - R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(1.0, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x - R, y, z);
+	glVertex3f(x - R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glEnd();
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -176,7 +243,7 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glColor4f(0.75, 0.75, 0.75, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
-	glVertex3f(x- R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x - R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
 	glVertex3f(x, y, z - R2);
 	glEnd();
 
@@ -186,7 +253,24 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
 	glVertex3f(x, y, z - R2);
-	glVertex3f(x+ R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x + R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glEnd();
+
+	// color cyan
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(0.3, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x - R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x, y, z - R2);
+	glVertex3f(x + R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(1.0, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x - R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x + R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
 	glEnd();
 
 	//////////////////////////////////////////////////////////////////////////
@@ -196,7 +280,7 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
 	glVertex3f(x + R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
-	glVertex3f(x+  R2*sin(60 * PI / 180), y, z - R2/2);
+	glVertex3f(x +  R2*sin(60 * PI / 180), y, z - R2/2);
 	glEnd();
 
 
@@ -204,20 +288,27 @@ void drawSnow(float x, float y, float z, float R, float alpha)
 	glColor4f(0.0, 0.0, 0.0, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(x, y, z);
-	glVertex3f(x+  R2*sin(60 * PI / 180), y, z - R2/2);
-	glVertex3f(x+ R , y, z );
+	glVertex3f(x +  R2*sin(60 * PI / 180), y, z - R2/2);
+	glVertex3f(x + R , y, z );
 	glEnd();
-
 
 	// color cyan
 
 	glBegin(GL_TRIANGLES);
 	glColor4f(0.3, 1.0, 1.0, alpha);
 	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(x+ R, y, z);
-	glVertex3f(x+  R2*sin(60 * PI / 180), y, z + R2/2);
-	glVertex3f(x+ R * cos(60 * PI / 180), y, z+ R* sin(60 * PI / 180));
+	glVertex3f(x + R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x +  R2*sin(60 * PI / 180), y, z - R2/2);
+	glVertex3f(x + R , y, z );
 	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(1.0, 1.0, 1.0, alpha);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(x + R * cos(60 * PI / 180), y, z - R* sin(60 * PI / 180));
+	glVertex3f(x + R , y, z );
+	glEnd();
+	
 	
 }
 

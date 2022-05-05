@@ -794,15 +794,15 @@ void Assignment_object::draw_object(bool drawWire){
 	GLfloat ambient4[] = { 0.0, 0.0, 0.0, 1.0 };
 	GLfloat diffuse4[] = { 0.0, 1.0, 0.0, 1.0 };
 	GLfloat specular4[] = { 1.0, 1.0, 1.0, 1.0 };
-	total_object[3].setupMaterial(ambient4, diffuse4, specular4, shininess);
-	total_object[4].setupMaterial(ambient4, diffuse4, specular4, shininess);
+	total_object[5].setupMaterial(ambient4, diffuse4, specular4, shininess);
+	total_object[7].setupMaterial(ambient4, diffuse4, specular4, shininess);
 	if (drawWire){
-		total_object[3].Draw();
-		total_object[4].Draw();
+		total_object[5].Draw();
+		total_object[7].Draw();
 	}
 	else{
-		total_object[3].Draw();
-		total_object[4].Draw();
+		total_object[5].Draw();
+		total_object[7].Draw();
 	}
 	glPopMatrix();
 
