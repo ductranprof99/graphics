@@ -11,7 +11,7 @@ int		screenWidth = 900;
 int		screenHeight= 600;
 #define PI 3.14159265358979323846
 
-Assignment_object obj,obj_wired;
+Assignment_object obj;
 
 float camera_angle = 0.0f; // init
 float camera_height = 0.0f; // equal object y
@@ -21,6 +21,7 @@ float lookAt_X, lookAt_Y, lookAt_Z;
 float rotate;
 
 bool		isWire = false;
+bool 		camera_y_look_down = false;
 float angle_y = 0;
 float angle_z = 0;
 
@@ -34,22 +35,20 @@ void myKeyboard(unsigned char key, int x, int y){
 			angle_z += 1;
 		if (key=='4')
 			angle_z += -1;
-		if (key=='5'){
+		if (key=='5')
 			obj.rotate_object(0.1);
-			obj_wired.rotate_object(0.1);	
-		}
-		if (key=='6'){
+		if (key=='6')
 			obj.rotate_object(-0.1);
-			obj_wired.rotate_object(-0.1);
-		}
 		if(key == 'w' || key == 'W')
 			isWire = !isWire;
-		if(key == '+'){
+		if(key == 'v' || key == 'V')
+			camera_y_look_down = !camera_y_look_down;
+		if(key == '+' && !camera_y_look_down){
 			camera_dis += 0.1;
 			camera_Z = camera_dis * cos(camera_angle);
 			camera_X = camera_dis * sin(camera_angle);
 			}
-		if(key == '-'){
+		if(key == '-'&& !camera_y_look_down){
 			camera_dis -= 0.1;
 			camera_Z = camera_dis * cos(camera_angle);
 			camera_X = camera_dis * sin(camera_angle);
@@ -63,19 +62,19 @@ void mySpecialKeyboard(int key, int x, int y){
 	if(key != GLUT_KEY_UP && key != GLUT_KEY_DOWN && key != GLUT_KEY_LEFT && key != GLUT_KEY_RIGHT){
 		return;
 	}
-	if(key == GLUT_KEY_RIGHT){
+	if(key == GLUT_KEY_RIGHT && !camera_y_look_down){
 		camera_angle += 0.1;
 		if(camera_angle > 2*3.1415926)
 			camera_angle -= 2*3.1415926;
 	}
-	else if(key == GLUT_KEY_LEFT){
+	else if(key == GLUT_KEY_LEFT && !camera_y_look_down){
 		camera_angle -= 0.1;
 		if(camera_angle < -2*3.1415926)
 			camera_angle += 2*3.1415926;
 	}
-	else if(key == GLUT_KEY_UP)
+	else if(key == GLUT_KEY_UP && !camera_y_look_down)
 		camera_height += 0.1;
-	else if(key == GLUT_KEY_DOWN)
+	else if(key == GLUT_KEY_DOWN && !camera_y_look_down)
 		camera_height -= 0.1;
 	camera_Z = camera_dis * cos(camera_angle);
 	camera_X = camera_dis * sin(camera_angle);
@@ -319,7 +318,7 @@ void drawSan(float alpha)
 	glColor3f(1.0f, 1.0f, 1.0f);
 	float d = 0.7, R = d / cos(PI / 6);
 	int i = 0;
-	for (float x = -30; x < 30; x += R + R * cos(PI / 3))
+	for (float x = -50; x < 50; x += R + R * cos(PI / 3))
 	{
 		float z = (i % 2 == 0) ? -20 : (-20 - d);
 		for (; z < 20; z += 2 * d)
@@ -352,7 +351,10 @@ void myDisplay()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(camera_X, camera_Y, camera_Z, lookAt_X, lookAt_Y, lookAt_Z, 0, 1, 0);
+	if(!camera_y_look_down)
+		gluLookAt(camera_X, camera_Y, camera_Z, lookAt_X, lookAt_Y, lookAt_Z, 0, 1, 0);
+	else
+		gluLookAt(0, 10, 0, lookAt_X, lookAt_Y, lookAt_Z, 0, 0,-1);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -455,7 +457,7 @@ int main(int argc, _TCHAR* argv[])
 	glutInitDisplayMode(GLUT_DOUBLE |GLUT_RGB | GLUT_DEPTH);//set the display mode
 	glutInitWindowSize(screenWidth, screenHeight); //set window size
 	glutInitWindowPosition(100, 100); // set window position on screen
-	glutCreateWindow("Lab 2"); // open the screen window
+	glutCreateWindow("Tran Dinh Duc - 1811984"); // open the screen window
 	myInit();
     glutDisplayFunc(myDisplay);
 	glutKeyboardFunc(myKeyboard);
